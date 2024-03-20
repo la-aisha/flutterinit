@@ -11,14 +11,18 @@ class TitleOption extends Text {
     required Color color ,
     required double size ,
     required FontWeight weight ,
+    TextAlign? textAlign,
+
     FontStyle? style , }) 
   :super(
     data,
-    style : GoogleFonts.salsa(
+    style : GoogleFonts.poppins(
       color: color ,
       fontSize:size ,
       fontWeight :weight ,
-    )
+    ),
+    textAlign: textAlign
+
      
     
   );

@@ -1,5 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gesturb/global/colors.dart';
+import 'package:gesturb/screens/login/login.dart';
+import 'package:gesturb/screens/register/register.dart';
 import 'package:gesturb/utils/titleoption.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gesturb/models/page_model.dart';
@@ -12,27 +16,33 @@ class OnboardingPage extends StatefulWidget {
 }
 
 class _OnboardingPageState extends State<OnboardingPage> {
+  final PageController _pageController = PageController();
   final List<PageModel> pages = [
     PageModel(
-      backgroundImage: 'images/ob1.png',
-      title: 'Informations en temps réel',
+      backgroundImage: 'images/on1.png',
+      title: 'Créer votre compte en toute sécurité',
       description:
-          'Recevez des notifications pour rester informé à chaque étape de votre voyage et être au courant déventuels événements',
+          'Complete your profile to help you find a roommate who will be right for you.',
     ),
     PageModel(
-      backgroundImage: 'images/ob2.png',
-      title: 'Trajets occasionnels',
+      backgroundImage: 'images/onb2.png',
+      title: 'Rejoignez notre grande famille',
       description:
-          'Explorez le plan de la ligne avec votre application, ainsi que les tarifs pour chaque zone. Profitez pleinement de nos tarifs avantageux.',
+          'Choose to live with people who match your preferences',
     ),
     PageModel(
-      backgroundImage: 'images/ob3.png',
-      title: 'Abonnement carte',
+      backgroundImage: 'images/onb3.png',
+      title: 'Connectez vous à votre commune',
       description:
-          'Désormais, au sein de votre application, vous avez la possibilité de recharger votre carte d’abonnement où que vous soyez.',
+          'Talk to your Roommate, know each other and make decision together',
     ),
   ];
   int currentIndex = 0;
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +55,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
           padding: EdgeInsets.all(20),
           height: height,
           width: width,
-          color: Colors.amber,
+          //color: Colors.amber,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Align(
                 alignment: Alignment.centerRight,
@@ -62,9 +74,72 @@ class _OnboardingPageState extends State<OnboardingPage> {
               Text(''),
               ),
             Center(
+              
+              //alignment: Alignment.center,
               child: Column(
                 children: [
-                  Image.asset('images/onb1.png') ,
+                  Image.asset(
+                  pages[currentIndex].backgroundImage,
+                  fit: BoxFit.contain,
+                  width: 300,
+                  height: 250,
+                ),
+                SizedBox(height: 50,) ,
+                TitleOption(data: pages[currentIndex].title, color: Colors.black, size: 18, weight: FontWeight.w500),
+                SizedBox(height: 20,) ,
+                TitleOption(data: pages[currentIndex].description, color: Colors.black, size: 14, weight: FontWeight.w400 ,textAlign: TextAlign.center,),
+                SizedBox(height: 50,) ,
+ 
+              Align(
+                alignment: Alignment.center,
+                child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      for (int i = 0; i < pages.length; i++)
+                      Container(
+                          margin: EdgeInsets.all(4.0),
+                          width: i == currentIndex ? 25.0 : 10.0,
+                          height: 10.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(3),
+                            color: i == currentIndex
+                                ? AppColors.jaune
+                                : AppColors.jaune,
+                          ),
+                        ),
+                      
+                    
+                    ],
+                  )
+                  ]),
+              ),
+              SizedBox(height: 20,),
+              TextButton(
+                onPressed: (){
+                   if (currentIndex < pages.length - 1) {
+                    setState(() {
+                      currentIndex++;
+                    });
+                  } else {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Register()));
+                  }
+                }, 
+                child: Text(
+                  currentIndex == pages.length - 1 ? 'Commencer' : 'Suivant',
+                  style: GoogleFonts.getFont(
+                    'Poppins',
+                    textStyle: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.normal,
+                      overflow: TextOverflow.clip,
+                    ),
+                  ),)
+              )
                 ],
               ),
              

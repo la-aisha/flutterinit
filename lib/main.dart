@@ -6,6 +6,7 @@ import 'package:gesturb/screens/login/login.dart';
 import 'package:gesturb/screens/onboarding.dart';
 import 'package:gesturb/screens/password/new_password.dart';
 import 'package:gesturb/screens/password/password_forgotten.dart';
+import 'package:gesturb/screens/register/register.dart';
 
 import 'package:provider/provider.dart';
 
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
    return MaterialApp(
         debugShowCheckedModeBanner: false,
         // ...
-        home: OnboardingPage(),
+        home: Register(),
       
     );
   }
